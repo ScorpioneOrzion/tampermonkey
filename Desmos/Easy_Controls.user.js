@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Easy controls
 // @namespace    http://tampermonkey.net/
-// @version      0.6
+// @version      1.0
 // @description  Easy setting controls for desmos games
 // @author       Tijmentij
 // @include      https://www.desmos.com/calculator/*
@@ -67,14 +67,20 @@
         if (keyboard[keySub] ^ keyboard[keyAdd]) {
           if (keyboard[keySub] == true) {
             value = getValue(text[0]) - step
-            if (mode == 0) {
+            if (mode == 1) {
+              if (value < min) value = min
+              if (value > max) value = max
+            } else {
               if (value < min) value += max - min + step
               if (value > max) value -= max - min - step
             }
             setExpression(findId(text[0]), value, text[0])
           } else if (keyboard[keyAdd] == true) {
             value = getValue(text[0]) + step
-            if (mode == 0) {
+            if (mode == 1) {
+              if (value < min) value = min
+              if (value > max) value = max
+            } else {
               if (value < min) value += max - min - step
               if (value > max) value -= max - min + step
             }
