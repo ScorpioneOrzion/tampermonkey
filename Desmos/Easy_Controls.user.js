@@ -15,8 +15,6 @@
   'use strict';
 
   const keyboard = [];
-  const calculator = window.Calc;
-  const expressions = calculator.getState().expressions.list;
 
   window.addEventListener("keydown", event => {
     if (event.composedPath()[0] !== document.body) return;
@@ -33,6 +31,8 @@
   })
 
   function checkMovement() {
+    const calculator = window.Calc;
+    const expressions = calculator.getState().expressions.list;
     for (const folderExpression of expressions) {
       if (folderExpression.type !== "folder") continue
       if (folderExpression.title !== "controls") continue
