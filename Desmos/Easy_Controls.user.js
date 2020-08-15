@@ -1,47 +1,68 @@
 // ==UserScript==
 // @name         Easy controls
 // @namespace    http://tampermonkey.net/
-// @version      0.3
+// @version      0.4
 // @description  Easy setting controls for desmos games
 // @author       Tijmentij
 // @include      https://www.desmos.com/calculator/*
+// @include      https://www.desmos.com/calculator
 // @grant        none
 // @updateURL    https://raw.githubusercontent.com/tijmentij/Tampermonkey/master/Desmos/Easy_Controls.user.js
 // @downloadURL  https://raw.githubusercontent.com/tijmentij/Tampermonkey/master/Desmos/Easy_Controls.user.js
 // ==/UserScript==
 
-window.addEventListener("keydown", event => {
-  if (event.composedPath()[0] !== document.body) return;
-  if (typeof window.Calc == undefined) return;
+(function () {
+  'use strict';
+
+  const keyboard = [];
   const calculator = window.Calc;
   const expressions = calculator.getState().expressions.list;
-  for (const folderExpression of expressions) {
-    if (folderExpression.type !== "folder") continue
-    if (folderExpression.title !== "controls") continue
-    if (folderExpression.hidden === true) continue
-    const id = folderExpression.id
-    for (const controlExpression of expressions) {
-      if (controlExpression.type !== "text") continue
-      if (controlExpression.folderId !== id) continue
-      if (controlExpression.hidden === true) continue
-      if (controlExpression.text.includes("^{")) continue
-      const text = controlExpression.text.split(" | ")
-      let value = getValue(text[0])
-      const keySub = getVar(text, 1)
-      const keyAdd = getVar(text, 2)
-      const step = getVar(text, 3)
-      const min = getVar(text, 4)
-      const max = getVar(text, 5)
-      if (event.keyCode == keySub) {
-        value = getValue(text[0]) - step
-        if (value < min) value += max - min + step
-        if (value > max) value -= max - min - step
-        setExpression(findId(text[0]), value, text[0])
-      } else if (event.keyCode == keyAdd) {
-        value = getValue(text[0]) + step
-        if (value < min) value += max - min - step
-        if (value > max) value -= max - min + step
-        setExpression(findId(text[0]), value, text[0])
+
+  window.addEventListener("keydown", event => {
+    if (event.composedPath()[0] !== document.body) return;
+    if (typeof window.Calc == undefined) return;
+    keyboard[event.keyCode] = true
+    checkMovement()
+  })
+
+  window.addEventListener("keyup", event => {
+    if (event.composedPath()[0] !== document.body) return;
+    if (typeof window.Calc == undefined) return;
+    keyboard[event.keyCode] = false
+    checkMovement()
+  })
+
+  function checkMovement() {
+    for (const folderExpression of expressions) {
+      if (folderExpression.type !== "folder") continue
+      if (folderExpression.title !== "controls") continue
+      if (folderExpression.hidden === true) continue
+      const id = folderExpression.id
+      for (const controlExpression of expressions) {
+        if (controlExpression.type !== "text") continue
+        if (controlExpression.folderId !== id) continue
+        if (controlExpression.hidden === true) continue
+        if (controlExpression.text.includes("^{")) continue
+        const text = controlExpression.text.split(" | ")
+        let value = getValue(text[0])
+        const keySub = getVar(text, 1)
+        const keyAdd = getVar(text, 2)
+        const step = getVar(text, 3)
+        const min = getVar(text, 4)
+        const max = getVar(text, 5)
+        if (keyboard[keySub] ^ keyboard[keyAdd]) {
+          if (keyboard[keySub] == true) {
+            value = getValue(text[0]) - step
+            if (value < min) value += max - min + step
+            if (value > max) value -= max - min - step
+            setExpression(findId(text[0]), value, text[0])
+          } else if (keyboard[keyAdd] == true) {
+            value = getValue(text[0]) + step
+            if (value < min) value += max - min - step
+            if (value > max) value -= max - min + step
+            setExpression(findId(text[0]), value, text[0])
+          }
+        }
       }
     }
   }
@@ -63,4 +84,4 @@ window.addEventListener("keydown", event => {
     if (list.length !== 1) return null
     return BigInt((list[0].id + "").split(".")[0])
   }
-})
+})();
