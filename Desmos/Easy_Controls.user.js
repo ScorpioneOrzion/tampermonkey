@@ -59,7 +59,7 @@
         const min = getVar(text, 4)
         const max = getVar(text, 5)
         let mode = 0
-        if (text.length >= 5) {
+        if (text.length > 6) {
           mode = getVar(text, 6)
         }
         if (!keyboard.hasOwnProperty(keySub)) keyboard[keySub] = false
