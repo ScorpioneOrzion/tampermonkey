@@ -4,7 +4,7 @@
 // @version      0.1
 // @description  Easy setting controls for desmos games
 // @author       Tijmentij
-// @include      https://www.desmos.com/calculator
+// @include      https://www.desmos.com/calculator/*
 // @grant        none
 // @updateURL    https://raw.githubusercontent.com/tijmentij/Tampermonkey/master/Desmos/Easy_Controls.user.js
 // @downloadURL  https://raw.githubusercontent.com/tijmentij/Tampermonkey/master/Desmos/Easy_Controls.user.js
