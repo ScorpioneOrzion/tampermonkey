@@ -20,17 +20,16 @@
     if (event.composedPath()[0] !== document.body) return;
     if (typeof window.Calc == undefined) return;
     keyboard[event.keyCode] = true
-    checkMovement()
   })
 
   window.addEventListener("keyup", event => {
     if (event.composedPath()[0] !== document.body) return;
     if (typeof window.Calc == undefined) return;
     keyboard[event.keyCode] = false
-    checkMovement()
   })
-
+  checkMovement()
   function checkMovement() {
+    requestAnimationFrame(checkMovement)
     const calculator = window.Calc;
     const expressions = calculator.getState().expressions.list;
     for (const folderExpression of expressions) {
