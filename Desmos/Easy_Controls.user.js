@@ -34,13 +34,13 @@ window.addEventListener("keydown", event => {
       const max = isNaN(text[5]) ? getValue(text[5]) : BigInt(text[5])
       if (event.keyCode == keySub) {
         value = getValue(text[0]) - step
-        if (value < min) value += max - min - step
-        else if (value > max) value -= max - min + step
+        if (value < min) value += max - min + step
+        if (value > max) value -= max - min - step
         setExpression(findId(text[0]), value, text[0])
       } else if (event.keyCode == keyAdd) {
         value = getValue(text[0]) + step
         if (value < min) value += max - min - step
-        else if (value > max) value -= max - min + step
+        if (value > max) value -= max - min + step
         setExpression(findId(text[0]), value, text[0])
       }
     }
