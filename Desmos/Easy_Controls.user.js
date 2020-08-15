@@ -24,18 +24,24 @@ window.addEventListener("keydown", event => {
       if (controlExpression.type !== "text") continue
       if (controlExpression.folderId !== id) continue
       if (controlExpression.hidden === true) continue
+      if (controlExpression.text.includes("^{")) continue
       const text = controlExpression.text.split(" | ")
-      let value = BigInt(getValue(text[0]))
-      if (event.keyCode == text[1]) {
-        value = BigInt(getValue(text[0])) - BigInt(text[3])
-        if (value < BigInt(text[4])) value += BigInt(text[5]) - BigInt(text[4])
-        if (value > BigInt(text[5])) value -= BigInt(text[5]) - BigInt(text[4])
-        setExpression(BigInt(findId(text[0])), value, text[0])
-      } else if (event.keyCode == text[2]) {
-        value = BigInt(getValue(text[0])) + BigInt(text[3])
-        if (value < BigInt(text[4])) value += BigInt(text[5]) - BigInt(text[4])
-        if (value > BigInt(text[5])) value -= BigInt(text[5]) - BigInt(text[4])
-        setExpression(BigInt(findId(text[0])), value, text[0])
+      let value = getValue(text[0])
+      const keySub = isNaN(text[1]) ? getValue(text[1]) : BigInt(text[1])
+      const keyAdd = isNaN(text[2]) ? getValue(text[2]) : BigInt(text[2])
+      const step = isNaN(text[3]) ? getValue(text[3]) : BigInt(text[3])
+      const min = isNaN(text[4]) ? getValue(text[4]) : BigInt(text[4])
+      const max = isNaN(text[5]) ? getValue(text[5]) : BigInt(text[5])
+      if (event.keyCode == keySub) {
+        value = getValue(text[0]) - step
+        if (value < min) value += max - min
+        if (value > max) value -= max - min
+        setExpression(findId(text[0]), value, text[0])
+      } else if (event.keyCode == keyAdd) {
+        value = getValue(text[0]) + step
+        if (value < min) value += max - min
+        if (value > max) value -= max - min
+        setExpression(findId(text[0]), value, text[0])
       }
     }
   }
@@ -45,7 +51,7 @@ window.addEventListener("keydown", event => {
   }
 
   function getValue(variable) {
-    return window.Calc.expressionAnalysis[findId(variable)].evaluation.value
+    return BigInt(window.Calc.expressionAnalysis[findId(variable)].evaluation.value)
   }
 
   function findId(variable) {
