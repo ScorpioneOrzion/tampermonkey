@@ -14,7 +14,7 @@
 (function () {
   'use strict';
 
-  const keyboard = [];
+  const keyboard = {};
   let checkState = false;
 
   window.addEventListener("keydown", event => {
@@ -58,6 +58,8 @@
         const step = getVar(text, 3)
         const min = getVar(text, 4)
         const max = getVar(text, 5)
+        if (!keyboard.hasOwnProperty(keySub)) keyboard[keySub] = false
+        if (!keyboard.hasOwnProperty(keyAdd)) keyboard[keyAdd] = false
         if (keyboard[keySub] ^ keyboard[keyAdd]) {
           if (keyboard[keySub] == true) {
             value = getValue(text[0]) - step
