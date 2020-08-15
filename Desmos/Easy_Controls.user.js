@@ -62,7 +62,6 @@
         if (text.length > 6) {
           mode = getVar(text, 6)
         }
-        //let this change be not needed again...
         if (!keyboard.hasOwnProperty(keySub)) keyboard[keySub] = false
         if (!keyboard.hasOwnProperty(keyAdd)) keyboard[keyAdd] = false
         if (keyboard[keySub] ^ keyboard[keyAdd]) {
