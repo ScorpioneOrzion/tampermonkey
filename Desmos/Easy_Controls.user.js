@@ -58,18 +58,26 @@
         const step = getVar(text, 3)
         const min = getVar(text, 4)
         const max = getVar(text, 5)
+        let mode = 0
+        if (text.length >= 5) {
+          mode = getVar(text, 6)
+        }
         if (!keyboard.hasOwnProperty(keySub)) keyboard[keySub] = false
         if (!keyboard.hasOwnProperty(keyAdd)) keyboard[keyAdd] = false
         if (keyboard[keySub] ^ keyboard[keyAdd]) {
           if (keyboard[keySub] == true) {
             value = getValue(text[0]) - step
-            if (value < min) value += max - min + step
-            if (value > max) value -= max - min - step
+            if (mode == 0) {
+              if (value < min) value += max - min + step
+              if (value > max) value -= max - min - step
+            }
             setExpression(findId(text[0]), value, text[0])
           } else if (keyboard[keyAdd] == true) {
             value = getValue(text[0]) + step
-            if (value < min) value += max - min - step
-            if (value > max) value -= max - min + step
+            if (mode == 0) {
+              if (value < min) value += max - min - step
+              if (value > max) value -= max - min + step
+            }
             setExpression(findId(text[0]), value, text[0])
           }
         }
