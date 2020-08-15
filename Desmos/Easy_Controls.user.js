@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Easy controls
 // @namespace    http://tampermonkey.net/
-// @version      0.5
+// @version      0.6
 // @description  Easy setting controls for desmos games
 // @author       Tijmentij
 // @include      https://www.desmos.com/calculator/*
@@ -15,19 +15,28 @@
   'use strict';
 
   const keyboard = [];
+  let checkState = false;
 
   window.addEventListener("keydown", event => {
     if (event.composedPath()[0] !== document.body) return;
     if (typeof window.Calc == undefined) return;
     keyboard[event.keyCode] = true
+    if (!checkState) {
+      checkState = true
+      checkMovement()
+    }
   })
 
   window.addEventListener("keyup", event => {
     if (event.composedPath()[0] !== document.body) return;
     if (typeof window.Calc == undefined) return;
     keyboard[event.keyCode] = false
+    if (!checkState) {
+      checkState = true
+      checkMovement()
+    }
   })
-  checkMovement()
+
   function checkMovement() {
     requestAnimationFrame(checkMovement)
     const calculator = window.Calc;
