@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Easy controls
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.2
 // @description  Easy setting controls for desmos games
 // @author       Tijmentij
 // @include      https://www.desmos.com/calculator/*
@@ -64,7 +64,7 @@
         }
         if (!keyboard.hasOwnProperty(keySub)) keyboard[keySub] = false
         if (!keyboard.hasOwnProperty(keyAdd)) keyboard[keyAdd] = false
-        switch ((keySub == 0) + (2 * keyAdd == 0)) {
+        switch ((keySub == 0n) + (2n * keyAdd == 0n)) {
           case 0:
             switch (keyboard[keySub] + 2 * keyboard[keyAdd]) {
               case 1:
