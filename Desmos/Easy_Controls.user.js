@@ -64,29 +64,57 @@
         }
         if (!keyboard.hasOwnProperty(keySub)) keyboard[keySub] = false
         if (!keyboard.hasOwnProperty(keyAdd)) keyboard[keyAdd] = false
-        if (keyboard[keySub] ^ keyboard[keyAdd]) {
-          if (keyboard[keySub] == true) {
-            value = getValue(text[0]) - step
-            if (mode == 1) {
-              if (value < min) value = min
-              if (value > max) value = max
-            } else {
-              if (value < min) value += max - min + step
-              if (value > max) value -= max - min - step
+        switch ((keySub == 0) + (2 * keyAdd == 0)) {
+          case 0:
+            switch (keyboard[keySub] + 2 * keyboard[keyAdd]) {
+              case 1:
+                value = getValue(text[0]) - step
+                if (mode == 1) {
+                  if (value < min) value = min
+                  if (value > max) value = max
+                } else {
+                  if (value < min) value += max - min + step
+                  if (value > max) value -= max - min - step
+                }
+                setExpression(findId(text[0]), value, text[0])
+                break;
+              case 2:
+                value = getValue(text[0]) + step
+                if (mode == 1) {
+                  if (value < min) value = min
+                  if (value > max) value = max
+                } else {
+                  if (value < min) value += max - min - step
+                  if (value > max) value -= max - min + step
+                }
+                setExpression(findId(text[0]), value, text[0])
+                break;
             }
-            setExpression(findId(text[0]), value, text[0])
-          } else if (keyboard[keyAdd] == true) {
-            value = getValue(text[0]) + step
-            if (mode == 1) {
-              if (value < min) value = min
-              if (value > max) value = max
+            break;
+          case 1:
+            if (keyboard[keyAdd]) {
+              value = getValue(text[0]) - step
             } else {
-              if (value < min) value += max - min - step
-              if (value > max) value -= max - min + step
+              value = getValue(text[0]) + step
             }
+            if (value < min) value = min
+            if (value > max) value = max
             setExpression(findId(text[0]), value, text[0])
-          }
+            break;
+          case 2:
+            if (keyboard[keySub]) {
+              value = getValue(text[0]) + step
+            } else {
+              value = getValue(text[0]) - step
+            }
+            if (value < min) value = min
+            if (value > max) value = max
+            setExpression(findId(text[0]), value, text[0])
+            break;
+          default:
+            break;
         }
+
       }
     }
   }
