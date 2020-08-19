@@ -64,7 +64,7 @@
         }
         if (!keyboard.hasOwnProperty(keySub)) keyboard[keySub] = false
         if (!keyboard.hasOwnProperty(keyAdd)) keyboard[keyAdd] = false
-        switch ((keySub == 0n) + (2n * keyAdd == 0n)) {
+        switch ((keySub == 0) + 2 * (keyAdd == 0)) {
           case 0:
             switch (keyboard[keySub] + 2 * keyboard[keyAdd]) {
               case 1:
