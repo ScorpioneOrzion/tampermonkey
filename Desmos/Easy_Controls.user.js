@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Easy controls
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  Easy setting controls for desmos games
 // @author       Tijmentij
 // @include      https://www.desmos.com/calculator/*
