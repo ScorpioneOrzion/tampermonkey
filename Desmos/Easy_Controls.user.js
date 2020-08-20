@@ -62,6 +62,7 @@
         if (text.length > 6) {
           mode = getVar(text, 6)
         }
+        if (keySub == null || keyAdd == null || step == null || min == null || max == null || mode == null) continue
         if (!keyboard.hasOwnProperty(keySub)) keyboard[keySub] = false
         if (!keyboard.hasOwnProperty(keyAdd)) keyboard[keyAdd] = false
         switch ((keySub == 0) + 2 * (keyAdd == 0)) {
@@ -120,7 +121,12 @@
   }
 
   function getVar(text, index) {
-    return isNaN(text[index]) ? getValue(text[index]) : BigInt((text[index] + "").split(".")[0])
+    if (isNaN(text[index])) {
+      let val = getValue(text[index])
+      if (val !== null) return val
+      return null
+    }
+    return BigInt((text[index] + "").split(".")[0])
   }
 
   function setExpression(id, value, variable) {
@@ -128,6 +134,7 @@
   }
 
   function getValue(variable) {
+    if (window.Calc.expressionAnalysis[findId(variable)] == undefined) return null
     return BigInt((window.Calc.expressionAnalysis[findId(variable)].evaluation.value + "").split(".")[0])
   }
 
