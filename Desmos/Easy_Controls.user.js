@@ -74,8 +74,8 @@
                   if (value < min) value = min
                   if (value > max) value = max
                 } else {
-                  if (value < min) value += max - min + step
-                  if (value > max) value -= max - min - step
+                  if (value < min) { value += max - min + step }
+                  else if (value > max) { value -= max - min - step }
                 }
                 setExpression(findId(text[0]), value, text[0])
                 break;
@@ -85,8 +85,8 @@
                   if (value < min) value = min
                   if (value > max) value = max
                 } else {
-                  if (value < min) value += max - min - step
-                  if (value > max) value -= max - min + step
+                  if (value < min) { value += max - min - step }
+                  else if (value > max) { value -= max - min + step }
                 }
                 setExpression(findId(text[0]), value, text[0])
                 break;
