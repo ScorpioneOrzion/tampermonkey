@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Easy controls
 // @namespace    http://tampermonkey.net/
-// @version      2.0
+// @version      2.1
 // @description  Easy setting controls for desmos games
 // @author       Tijmentij
 // @include      https://www.desmos.com/calculator/*
@@ -74,8 +74,8 @@
                   if (value < min) value = min
                   if (value > max) value = max
                 } else {
-                  if (value < min) { value += max - min + step }
-                  else if (value > max) { value -= max - min - step }
+                  if (value < min) { value += max - min }
+                  else if (value > max) { value -= max - min }
                 }
                 setExpression(findId(text[0]), value, text[0])
                 break;
@@ -85,8 +85,8 @@
                   if (value < min) value = min
                   if (value > max) value = max
                 } else {
-                  if (value < min) { value += max - min - step }
-                  else if (value > max) { value -= max - min + step }
+                  if (value < min) { value += max - min }
+                  else if (value > max) { value -= max - min }
                 }
                 setExpression(findId(text[0]), value, text[0])
                 break;
@@ -121,6 +121,11 @@
   }
 
   function getVar(text, index) {
+    if (text[index][0] === "-") {
+      console.log(text[index].slice(1))
+      if ([0, getVar(text[index].slice(1), index)] == null) return null
+      return BigInt(-1) * [0, getVar(text[index].slice(1), index)]
+    }
     if (isNaN(text[index])) {
       let val = getValue(text[index])
       if (val !== null) return val
