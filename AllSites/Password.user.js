@@ -14,7 +14,7 @@
   if (window.createPassword === undefined) {
     window.createPassword = (len) => {
       const chars = "@%+\\/'!#$^?:,,(){}[]~.-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz"
-      return [...Array(len)].map(() => chars[Math.floor(87 * Math.random())]).join("")
+      return [...Array(len)].map(() => chars[Math.floor(chars.length * Math.random())]).join("")
     }
   }
 })();
