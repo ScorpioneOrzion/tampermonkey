@@ -13,8 +13,8 @@
   'use strict';
   if (window.createPassword === undefined) {
     window.createPassword = (len) => {
-      const chars = "-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz"
-      return [...Array(len)].map(() => chars[Math.floor(64 * Math.random())]).join("")
+      const chars = "@%+\\/'!#$^?:,,(){}[]~.-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz"
+      return [...Array(len)].map(() => chars[Math.floor(87 * Math.random())]).join("")
     }
   }
 })();
