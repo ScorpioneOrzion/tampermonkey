@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Simulations
 // @namespace    http://tampermonkey.net/
-// @version      2.5
+// @version      2.6
 // @description  Simulations for Desmos
 // @author       Scorpione Orzion
 // @include      https://www.desmos.com/calculator/*
@@ -13,6 +13,7 @@
 
 (function () {
   'use strict';
-
-  Calc.updateSettings({ clickableObjects: true })
+  var c = setInterval(() => {
+    if (Calc) { Calc.updateSettings({ clickableObjects: true }); clearInterval(c) }
+  }, 5)
 })();
