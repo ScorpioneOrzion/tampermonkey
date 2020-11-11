@@ -14,6 +14,6 @@
 (function () {
   'use strict';
   var c = setInterval(() => {
-    if (Calc) { Calc.updateSettings({ clickableObjects: true }); clearInterval(c) }
+    if (window.Calc) { window.Calc.updateSettings({ clickableObjects: true }); clearInterval(c); console.log("Simulations Added") }
   }, 5)
 })();
