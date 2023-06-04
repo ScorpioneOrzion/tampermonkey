@@ -13,6 +13,25 @@
 
 (function() {
     'use strict';
+    legalmoves.moves_RemoveOccupiedByFriendlyPiece = function (gamefile, moves, color) {
+
+    for (let i = moves.length - 1; i >= 0; i--) {
+      const thisMove = moves[i]
+
+      // Is there a piece on this square?
+      const pieceAtSquare = gamefile.getPieceTypeAtCoords(thisMove)
+      if (!pieceAtSquare) continue; // Next move if there is no square here
+
+      // Do the colors match?
+      const pieceAtSquareColor = pieces.getPieceColor(pieceAtSquare)
+
+      // If they match colors, move is illegal because we cannot capture friendly pieces. Remove the move.
+      if (color === pieceAtSquareColor || color === "grey") moves.splice(i, 1)
+    }
+
+    return moves;
+  }
+    
     legalmoves.queens = function () {
       return {
         individual: [
