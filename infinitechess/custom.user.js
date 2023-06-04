@@ -7,8 +7,8 @@
 // @match        https://www.infinitechess.org/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=infinitechess.org
 // @grant        none
-// @updateURL    https://github.com/ScorpioneOrzion/tampermonkey/edit/master/infinitechess/custom.js
-// @downloadURL  https://github.com/ScorpioneOrzion/tampermonkey/edit/master/infinitechess/custom.js
+// @updateURL    https://github.com/ScorpioneOrzion/tampermonkey/edit/master/infinitechess/custom.user.js
+// @downloadURL  https://github.com/ScorpioneOrzion/tampermonkey/edit/master/infinitechess/custom.user.js
 // ==/UserScript==
 
 (function() {
