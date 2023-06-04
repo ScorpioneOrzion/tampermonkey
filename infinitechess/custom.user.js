@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         InfinityChess Custom
 // @namespace    http://github.com/ScorpioneOrzion/tampermonkey
-// @version      0.1
+// @version      0.2
 // @description  custom infiniteChess
 // @author       ScorpioneOrzion
 // @match        https://www.infinitechess.org/*
