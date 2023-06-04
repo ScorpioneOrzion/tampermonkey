@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         InfinityChess Custom
 // @namespace    http://github.com/ScorpioneOrzion/tampermonkey
-// @version      0.2
+// @version      0.3
 // @description  custom infiniteChess
 // @author       ScorpioneOrzion
 // @match        https://www.infinitechess.org/*
@@ -32,7 +32,7 @@
     return moves;
   }
     
-    legalmoves.queens = function () {
+    legalmoves.pieceMovesets.queens = function () {
       return {
         individual: [
           [-2, 1], [-1, 2], [1, 2], [2, 1],
